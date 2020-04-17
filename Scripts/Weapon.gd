@@ -3,8 +3,11 @@ extends Node
 export var fire_rate = 0.25
 export var clip_size = 5
 export var reload_rate = 1
+export var score = 100
 
+onready var data = get_node("/root/PlayerData")
 onready var ammo_label = $"/root/Game/UI/Ammo"
+onready var score_label = $"/root/Game/UI/Score"
 onready var raycast = $"../Pivot/Camera/RayCast"
 var current_ammo = 0
 var can_fire = true
@@ -33,6 +36,8 @@ func check_collision():
 		var collider = raycast.get_collider()
 		if collider.is_in_group("Enemies"):
 			collider.queue_free()
+			data.set_score(score)
+			score_label.set_text("Score: %s" % PlayerData.score)
 
 func fire():
 	can_fire = false

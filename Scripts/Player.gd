@@ -47,3 +47,12 @@ func _physics_process(delta):
 	velocity.x = desired_velocity.x
 	velocity.z = desired_velocity.z
 	velocity = move_and_slide(velocity, Vector3.UP, true)
+
+
+func _on_Area_body_entered(body):
+	if body.is_in_group("Enemies"):
+		die()
+
+func die():
+	queue_free()
+	get_tree().change_scene("res://Scenes/GameOver.tscn")
